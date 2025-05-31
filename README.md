@@ -108,3 +108,36 @@ projmap/
 -   CLI interface
 -   Buildable Go binary
 -   Homebrew-compatible release setup
+
+## 🚀 How to Run
+
+Once the Go environment is ready, you can execute the CLI without installing:
+
+```bash
+# Run via go run
+cd projmap
+go run ./cmd/projmap/main.go [path] --max-depth=<n>
+# e.g., scan current dir up to depth 3
+go run ./cmd/projmap/main.go . --max-depth=3
+```
+
+## 🛠️ How to Compile
+
+Build a standalone binary and run it:
+
+```bash
+# From project root
+go build -o projmap ./cmd/projmap
+# Verify and run
+./projmap [path] --max-depth=3
+```
+
+### 📥 Install as a global command
+
+To install into your $GOBIN (or $GOPATH/bin) so it's on your PATH:
+
+```bash
+go install github.com/tianpai/projmap/cmd/projmap@latest
+# Then invoke anywhere:
+projmap . --max-depth=3
+```
