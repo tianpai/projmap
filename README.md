@@ -2,7 +2,7 @@
 
 ### 📌 Summary
 
-projmap is a command-line tool that prints a markdown-friendly nested
+**Projmap** is a command-line tool that prints a markdown-friendly nested
 file/folder structure with optional inline comments, similar to a tree command,
 but designed for documentation, LLM inputs, and clean readability.
 
@@ -64,50 +64,21 @@ projmap [path] [options]
 
 ### YAML
 
-main.py: "Entry point" helper.py: "Helper functions" README.md: "Docs"
+```yaml
+main.py: "Entry point"
+helper.py: "Helper functions"
+README.md: "Docs"
+```
 
 ### JSON
 
-{ "main.py": "Entry point", "helper.py": "Helper functions", "README.md": "Docs"
+```json
+{
+  "main.py": "Entry point",
+  "helper.py": "Helper functions",
+  "README.md": "Docs"
 }
-
-## 📦 Homebrew-Ready Design
-
--   Written in **Go** (static binary)
--   GitHub-based releases with version tags (v1.0.0)
--   Use goreleaser to automate:
--   Binary builds
--   Checksums
--   Homebrew formula
--   Optional: Your own tap repo (e.g. yourname/homebrew-projmap)
-
-## 🧱 Directory Structure (Go Project)
-
 ```
-projmap/
-├── cmd/
-│   └── projmap/
-│       └── main.go
-├── internal/
-│   └── tree/
-│       └── walker.go
-├── go.mod
-├── .goreleaser.yml
-├── README.md
-└── LICENSE
-```
-
-## ✅ MVP Checklist
-
--   Parses a directory recursively
--   Outputs markdown-style tree
--   Respects --max-depth
--   Skips excluded folders/files
--   Adds inline comments from optional YAML/JSON
--   Writes to file (or stdout)
--   CLI interface
--   Buildable Go binary
--   Homebrew-compatible release setup
 
 ## 🚀 How to Run
 
@@ -132,42 +103,35 @@ go build -o projmap ./cmd/projmap
 ./projmap [path] -max-depth=3
 ```
 
-### 📥 Install as a global command
-
-To install into your $GOBIN (or $GOPATH/bin) so it's on your PATH:
-
-```bash
-go install github.com/tianpai/projmap/cmd/projmap@latest
-# Then invoke anywhere:
-projmap . -max-depth=3
-```
+> [!WARNING] > [path] does not work
 
 ## 🚧 Development Status
 
 ### ✅ Completed Features
 
--   **Core tree traversal** - Recursive directory parsing with depth control
--   **Markdown output** - Clean `-` bullet format with 2-space indentation
--   **Exclusion patterns** - Skip files/folders via `-exclude` flag (supports
-    wildcards)
--   **CLI interface** - Basic flag parsing with `-max-depth` and `-exclude`
--   **Binary builds** - Compiles to standalone executable
+- **Core tree traversal** - Recursive directory parsing with depth control
+- **Markdown output** - Clean `-` bullet format with 2-space indentation
+- **Exclusion patterns** - Skip files/folders via `-exclude` flag (supports
+  wildcards)
+- **CLI interface** - Basic flag parsing with `-max-depth` and `-exclude`
+- **Binary builds** - Compiles to standalone executable
 
 ### 🔄 In Progress
 
--   **Comment maps** - YAML/JSON file annotation support (`-comment-map`)
--   **Output redirection** - Write to file instead of stdout (`-out`)
--   **Additional flags** - `-plain`, `-show-hidden`, `-version`
+- **Comment maps** - YAML/JSON file annotation support (`-comment-map`)
+- **Output redirection** - Write to file instead of stdout (`-out`)
+- **Additional flags** - `-plain`, `-show-hidden`, `-version`
 
 ### 📋 TODO
 
--   **Homebrew packaging** - Complete `.goreleaser.yml` and release automation
--   **Testing** - Unit tests for walker and exclusion logic
--   **Documentation** - Man page and usage examples
--   **Performance** - Optimize for large directory trees
+- **Homebrew packaging** - Complete `.goreleaser.yml` and release automation
+- **Testing** - Unit tests for walker and exclusion logic
+- **Documentation** - Man page and usage examples
+- **Performance** - Optimize for large directory trees
 
 ### 🐛 Known Issues
 
--   None currently reported
+1. _path_ in the command line does not work as expected; it defaults to the
+   current directory.
 
 _Last updated: May 31, 2025_
