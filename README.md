@@ -10,20 +10,22 @@ but designed for documentation, LLM inputs, and clean readability.
 
 Running:
 
+```bash
 projmap . --max-depth 3 --comment-map comments.yaml --exclude ".git,pycache"
+```
 
 Output:
 
-```
+```txt
 -   project-root/
-    -   src/
-        -   main.py # Entry point
-        -   utils/
-            -   helper.py # Helper functions
-    -   tests/
-        -   test_main.py # Unit tests
-    -   requirements.txt # Dependencies
-    -   README.md # Docs
+-   src/
+    -   main.py # Entry point
+    -   utils/
+        -   helper.py # Helper functions
+-   tests/
+    -   test_main.py # Unit tests
+-   requirements.txt # Dependencies
+-   README.md # Docs
 ```
 
 ## ⚙️ Features
