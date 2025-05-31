@@ -9,8 +9,8 @@ import (
 )
 
 // Walk scans the given path recursively up to maxDepth and prints a markdown-style tree.
-// TODO: implement exclusion and output options.
-func Walk(path string, maxDepth int) error {
+// Excludes any file or folder whose name matches one of the patterns.
+func Walk(path string, maxDepth int, excludes []string) error {
 	info, err := os.Stat(path)
 	if err != nil {
 		return err
@@ -25,11 +25,11 @@ func Walk(path string, maxDepth int) error {
 	if !info.IsDir() {
 		return nil
 	}
-	return walk(path, 1, maxDepth)
+	return walk(path, 1, maxDepth, excludes)
 }
 
 // recursive helper to print directory tree
-func walk(path string, depth, maxDepth int) error {
+func walk(path string, depth, maxDepth int, excludes []string) error {
 	if maxDepth > 0 && depth > maxDepth {
 		return nil
 	}
@@ -47,14 +47,35 @@ func walk(path string, depth, maxDepth int) error {
 		if strings.HasPrefix(name, ".") {
 			continue
 		}
-		indent := strings.Repeat("    ", depth)
+		// skip excluded patterns
+		skip := false
+		for _, pat := range excludes {
+			if pat == "" {
+				continue
+			}
+			// wildcard match
+			// wildcard pattern: check for *, ?, [ or ]
+			if strings.ContainsAny(pat, "*?[]") {
+				if m, _ := filepath.Match(pat, name); m {
+					skip = true
+					break
+				}
+			} else if name == pat || strings.Contains(name, pat) {
+				skip = true
+				break
+			}
+		}
+		if skip {
+			continue
+		}
+		indent := strings.Repeat("  ", depth)
 		display := name
 		if e.IsDir() {
 			display += "/"
 		}
 		fmt.Printf("%s-   %s\n", indent, display)
 		if e.IsDir() {
-			if err := walk(filepath.Join(path, name), depth+1, maxDepth); err != nil {
+			if err := walk(filepath.Join(path, name), depth+1, maxDepth, excludes); err != nil {
 				return err
 			}
 		}

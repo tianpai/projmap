@@ -11,7 +11,7 @@ but designed for documentation, LLM inputs, and clean readability.
 Running:
 
 ```bash
-projmap . --max-depth 3 --comment-map comments.yaml --exclude ".git,pycache"
+projmap . -max-depth 3 -comment-map comments.yaml -exclude ".git,pycache"
 ```
 
 Output:
@@ -49,16 +49,16 @@ Output:
 projmap [path] [options]
 ```
 
-| Option          | Type   | Description                                       |
-| --------------- | ------ | ------------------------------------------------- |
-| `--max-depth`   | int    | Limit recursion depth                             |
-| `--exclude`     | string | Comma-separated list of patterns to ignore        |
-| `--comment-map` | string | Path to YAML/JSON file with comments per filename |
-| `--out`         | string | Output to file instead of stdout                  |
-| `--plain`       | flag   | Strip all comments                                |
-| `--show-hidden` | flag   | Include dotfiles and hidden folders               |
-| `--help`        | flag   | Show usage                                        |
-| `--version`     | flag   | Show version                                      |
+| Option         | Type   | Description                                       |
+| -------------- | ------ | ------------------------------------------------- |
+| `-max-depth`   | int    | Limit recursion depth                             |
+| `-exclude`     | string | Comma-separated list of patterns to ignore        |
+| `-comment-map` | string | Path to YAML/JSON file with comments per filename |
+| `-out`         | string | Output to file instead of stdout                  |
+| `-plain`       | flag   | Strip all comments                                |
+| `-show-hidden` | flag   | Include dotfiles and hidden folders               |
+| `-help`        | flag   | Show usage                                        |
+| `-version`     | flag   | Show version                                      |
 
 ## 📁 Comment Map Format
 
@@ -116,9 +116,9 @@ Once the Go environment is ready, you can execute the CLI without installing:
 ```bash
 # Run via go run
 cd projmap
-go run ./cmd/projmap/main.go [path] --max-depth=<n>
+go run ./cmd/projmap/main.go [path] -max-depth=<n>
 # e.g., scan current dir up to depth 3
-go run ./cmd/projmap/main.go . --max-depth=3
+go run ./cmd/projmap/main.go . -max-depth=3
 ```
 
 ## 🛠️ How to Compile
@@ -129,7 +129,7 @@ Build a standalone binary and run it:
 # From project root
 go build -o projmap ./cmd/projmap
 # Verify and run
-./projmap [path] --max-depth=3
+./projmap [path] -max-depth=3
 ```
 
 ### 📥 Install as a global command
@@ -139,5 +139,35 @@ To install into your $GOBIN (or $GOPATH/bin) so it's on your PATH:
 ```bash
 go install github.com/tianpai/projmap/cmd/projmap@latest
 # Then invoke anywhere:
-projmap . --max-depth=3
+projmap . -max-depth=3
 ```
+
+## 🚧 Development Status
+
+### ✅ Completed Features
+
+-   **Core tree traversal** - Recursive directory parsing with depth control
+-   **Markdown output** - Clean `-` bullet format with 2-space indentation
+-   **Exclusion patterns** - Skip files/folders via `-exclude` flag (supports
+    wildcards)
+-   **CLI interface** - Basic flag parsing with `-max-depth` and `-exclude`
+-   **Binary builds** - Compiles to standalone executable
+
+### 🔄 In Progress
+
+-   **Comment maps** - YAML/JSON file annotation support (`-comment-map`)
+-   **Output redirection** - Write to file instead of stdout (`-out`)
+-   **Additional flags** - `-plain`, `-show-hidden`, `-version`
+
+### 📋 TODO
+
+-   **Homebrew packaging** - Complete `.goreleaser.yml` and release automation
+-   **Testing** - Unit tests for walker and exclusion logic
+-   **Documentation** - Man page and usage examples
+-   **Performance** - Optimize for large directory trees
+
+### 🐛 Known Issues
+
+-   None currently reported
+
+_Last updated: May 31, 2025_
