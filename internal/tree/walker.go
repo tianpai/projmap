@@ -21,7 +21,7 @@ func Walk(path string, maxDepth int) error {
 		suffix = "/"
 	}
 	// print root node
-	fmt.Printf("-   \n", base, suffix)
+	fmt.Printf("-   %s%s\n", base, suffix)
 	if !info.IsDir() {
 		return nil
 	}
@@ -47,7 +47,7 @@ func walk(path string, depth, maxDepth int) error {
 		if strings.HasPrefix(name, ".") {
 			continue
 		}
-		indent := strings.Repeat("  ", depth)
+		indent := strings.Repeat("    ", depth)
 		display := name
 		if e.IsDir() {
 			display += "/"
