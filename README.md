@@ -145,6 +145,7 @@ go build -o projmap ./cmd/projmap
 ### 🐛 Known Issues
 
 1. `--exclude` patterns do not work when given a PATH
-   `projmap -max-depth 3 -comment-map comments.yaml -exclude ".git,pycache"`
+   `projmap -max-depth 3 -exclude ".git,pycache"` works, but
+   `projmap . -max-depth 3 -exclude ".git,pycache"` does not
 
 _Last updated: May 31, 2025_

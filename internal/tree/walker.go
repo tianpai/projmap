@@ -15,6 +15,9 @@ func Walk(path string, maxDepth int, excludes []string) error {
 	if err != nil {
 		return err
 	}
+
+	// WARNING: the known issue
+	// maybe becuase the path is set wrong here?
 	base := filepath.Base(path)
 	suffix := ""
 	if info.IsDir() {
