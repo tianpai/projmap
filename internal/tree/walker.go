@@ -53,14 +53,18 @@ func walk(path string, depth, maxDepth int, excludes []string) error {
 			if pat == "" {
 				continue
 			}
+			// DEBUG: Add logging
+			// fmt.Printf("DEBUG: Checking %q against pattern %q\n", name, pat)
 			// wildcard match
 			// wildcard pattern: check for *, ?, [ or ]
 			if strings.ContainsAny(pat, "*?[]") {
 				if m, _ := filepath.Match(pat, name); m {
+					// fmt.Printf("DEBUG: Wildcard match! Skipping %q\n", name)
 					skip = true
 					break
 				}
 			} else if name == pat || strings.Contains(name, pat) {
+				// fmt.Printf("DEBUG: Exact/substring match! Skipping %q\n", name)
 				skip = true
 				break
 			}

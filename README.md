@@ -1,17 +1,17 @@
 # projmap
 
-### 📌 Summary
+## 📌 Summary
 
 **Projmap** is a command-line tool that prints a markdown-friendly nested
 file/folder structure with optional inline comments, similar to a tree command,
 but designed for documentation, LLM inputs, and clean readability.
 
-## 📄 Example Output
+### 📄 Example Output
 
 Running:
 
 ```bash
-projmap . -max-depth 3 -comment-map comments.yaml -exclude ".git,pycache"
+projmap -max-depth 3 -comment-map comments.yaml -exclude ".git,pycache"
 ```
 
 Output:
@@ -46,21 +46,35 @@ Output:
 ### 🔸 Command Line Options
 
 ```bash
-projmap [path] [options]
+projmap [options]
 ```
 
-| Option         | Type   | Description                                       |
-| -------------- | ------ | ------------------------------------------------- |
-| `-max-depth`   | int    | Limit recursion depth                             |
-| `-exclude`     | string | Comma-separated list of patterns to ignore        |
-| `-comment-map` | string | Path to YAML/JSON file with comments per filename |
-| `-out`         | string | Output to file instead of stdout                  |
-| `-plain`       | flag   | Strip all comments                                |
-| `-show-hidden` | flag   | Include dotfiles and hidden folders               |
-| `-help`        | flag   | Show usage                                        |
-| `-version`     | flag   | Show version                                      |
+| Option          | alias | Type   | Description                                       |
+| --------------- | ----- | ------ | ------------------------------------------------- |
+| `--max-depth`   | `-m`  | int    | Limit recursion depth                             |
+| `--exclude`     | -e    | string | Comma-separated list of patterns to ignore        |
+| `--comment-map` | -c    | string | Path to YAML/JSON file with comments per filename |
+| `-out`          | -o    | string | Output to file instead of stdout                  |
+| `-plain`        | -p    | flag   | Strip all comments                                |
+| `--show-hidden` | -s    | flag   | Include dotfiles and hidden folders               |
+| `-help`         | -h    | flag   | Show usage                                        |
+| `-version`      | -v    | flag   | Show version                                      |
+
+> [!WARNING]
+> alias is not working yet, so use the full option names for now.
+
+> [!TIP]
+> The `--exclude` patterns support wildcards like `*.py` or `dir/*`
+> to ignore directories use directory names WITHOUT trailing slashes.
+> and directory names will be respected at all levels of the tree. (this behavior
+> might change in the future)
+> to ignore only files (aka. to show directory only )-> use `"*.*"`
+> to ignore -> use `"*.*"`
 
 ## 📁 Comment Map Format
+
+> [!warning]
+> not supported yet
 
 ### YAML
 
@@ -88,6 +102,7 @@ Once the Go environment is ready, you can execute the CLI without installing:
 # Run via go run
 cd projmap
 go run ./cmd/projmap/main.go [path] -max-depth=<n>
+
 # e.g., scan current dir up to depth 3
 go run ./cmd/projmap/main.go . -max-depth=3
 ```
@@ -100,10 +115,8 @@ Build a standalone binary and run it:
 # From project root
 go build -o projmap ./cmd/projmap
 # Verify and run
-./projmap [path] -max-depth=3
+./projmap --max-depth=3
 ```
-
-> [!WARNING] > [path] does not work
 
 ## 🚧 Development Status
 
@@ -131,7 +144,7 @@ go build -o projmap ./cmd/projmap
 
 ### 🐛 Known Issues
 
-1. _path_ in the command line does not work as expected; it defaults to the
-   current directory.
+1. `--exclude` patterns do not work when given a PATH
+   `projmap -max-depth 3 -comment-map comments.yaml -exclude ".git,pycache"`
 
 _Last updated: May 31, 2025_
