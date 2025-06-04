@@ -49,16 +49,16 @@ Output:
 projmap [options]
 ```
 
-| Option          | alias | Type   | Description                                       |
-| --------------- | ----- | ------ | ------------------------------------------------- |
-| `--max-depth`   | `-m`  | int    | Limit recursion depth                             |
-| `--exclude`     | -e    | string | Comma-separated list of patterns to ignore        |
-| `--comment-map` | -c    | string | Path to YAML/JSON file with comments per filename |
-| `-out`          | -o    | string | Output to file instead of stdout                  |
-| `-plain`        | -p    | flag   | Strip all comments                                |
-| `--show-hidden` | -s    | flag   | Include dotfiles and hidden folders               |
-| `-help`         | -h    | flag   | Show usage                                        |
-| `-version`      | -v    | flag   | Show version                                      |
+| Option          | Type   | Description                                       |
+| --------------- | ------ | ------------------------------------------------- |
+| `--max-depth`   | int    | Limit recursion depth                             |
+| `--exclude`     | string | Comma-separated list of patterns to ignore        |
+| `--comment-map` | string | Path to YAML/JSON file with comments per filename |
+| `-out`          | string | Output to file instead of stdout                  |
+| `-plain`        | flag   | Strip all comments                                |
+| `--show-hidden` | flag   | Include dotfiles and hidden folders               |
+| `-help`         | flag   | Show usage                                        |
+| `-version`      | flag   | Show version                                      |
 
 > [!WARNING]
 > alias is not working yet, so use the full option names for now.
